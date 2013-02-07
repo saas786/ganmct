@@ -163,18 +163,25 @@ if ( ! class_exists( "GA_Nav_Tracking" ) ) :
 		function add_tracking( $item_output, $item, $depth, $args ) {
 
 			$tracking1 = get_post_meta( $item->ID, '_nav_menu_tracking_0', true );
+
 			$tracking2 = get_post_meta( $item->ID, '_nav_menu_tracking_1', true );
+
 			$tracking3 = get_post_meta( $item->ID, '_nav_menu_tracking_2', true );
+
 			$tracking4 = get_post_meta( $item->ID, '_nav_menu_tracking_3', true );
 
-			return $item_output
-					. '<span style="display:none;" class="ga-tracking" '
-					. 'data-tracking-1="' . $tracking1 . '"'
-					. 'data-tracking-2="' . $tracking2 . '"'
-					. 'data-tracking-3="' . $tracking3 . '"'
-					. 'data-tracking-4="' . $tracking4 . '"'
-					. '>'
-					. '</span>';
+			/** If all 4 fields are filled in, output */
+			if ( $tracking1 && $tracking2 && $tracking3 && $tracking4 ) {
+				return $item_output
+						. '<span style="display:none;" class="ga-tracking" '
+						. 'data-tracking-1="' . $tracking1 . '"'
+						. 'data-tracking-2="' . $tracking2 . '"'
+						. 'data-tracking-3="' . $tracking3 . '"'
+						. 'data-tracking-4="' . $tracking4 . '"'
+						. '>'
+						. '</span>';
+			}
+			return $item_output;
 		}
 
 		function register_scripts() {
